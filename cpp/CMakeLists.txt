@@ -1,0 +1,16 @@
+enable_language(CXX)
+
+set(REQUIRED_CPP_STANDARD 17 CACHE STRING "Required C++ standard")
+if(DEFINED CMAKE_CXX_STANDARD)
+    if(CMAKE_CXX_STANDARD LESS ${REQUIRED_CPP_STANDARD})
+        message(FATAL_ERROR "This project requires at least C++${REQUIRED_CPP_STANDARD}")
+    endif()
+else()
+    set(CMAKE_CXX_STANDARD ${REQUIRED_CPP_STANDARD})
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+if(NOT DEFINED CMAKE_CXX_EXTENSIONS)
+    set(CMAKE_CXX_EXTENSIONS NO)
+endif()
+
+add_subdirectory(library)

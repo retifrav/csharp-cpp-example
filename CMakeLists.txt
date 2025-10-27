@@ -28,18 +28,10 @@ project(
     "csharp-cpp-example"
     DESCRIPTION "An example project about using a C++ library inside .NET/C# application"
     VERSION 1.2.3
-    LANGUAGES CSharp
 )
 
 # global debug postfix for libraries (executables still need to set it)
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Filename postfix for libraries under DEBUG configuration")
 
-include(CSharpUtilities)
-
-set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")
-set(CMAKE_DOTNET_TARGET_FRAMEWORK "net9.0")
-#set(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "net9.0")
-#string(APPEND CMAKE_CSharp_FLAGS " /langversion:13")
-
-add_subdirectory(library-csharp)
-add_subdirectory(application-csharp)
+add_subdirectory(cpp)
+add_subdirectory(csharp)

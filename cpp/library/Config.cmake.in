@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(jsoncpp CONFIG REQUIRED)
+
+include("${CMAKE_CURRENT_LIST_DIR}/thingyTargets.cmake")
+
+check_required_components(thingy)
