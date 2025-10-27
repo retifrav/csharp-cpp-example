@@ -1,8 +1,9 @@
 ﻿using System;
 using System.CommandLine;
 using System.Text;
+using Lbr;
 
-namespace applctn;
+namespace Applctn;
 
 class Program
 {
@@ -27,6 +28,8 @@ class Program
             {
                 Console.WriteLine($"Something that was passed: {smOpt}");
             }
+
+            Console.WriteLine($"Something from dependency: {Some.getSome()}");
 
             return 0;
         }

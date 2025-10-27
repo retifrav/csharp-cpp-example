@@ -10,3 +10,8 @@ target_sources(applctn
     PRIVATE
         src/Program.cs
 )
+
+target_link_libraries(applctn
+    PRIVATE
+        some
+)
