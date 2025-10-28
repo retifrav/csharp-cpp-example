@@ -6,9 +6,9 @@ namespace Lbr;
 public static class Some
 {
 #if DEBUG
-    [DllImport("thingyd.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
+    [DllImport("thingy_c_apid.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
 #else
-    [DllImport("thingy.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
+    [DllImport("thingy_c_api.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
 #endif
     private static extern IntPtr do_thingy();
 
