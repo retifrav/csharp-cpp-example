@@ -1,5 +1,7 @@
 enable_language(CXX)
 
+include(GNUInstallDirs) # need to be after at least some language has been enabled
+
 set(REQUIRED_CPP_STANDARD 17 CACHE STRING "Required C++ standard")
 if(DEFINED CMAKE_CXX_STANDARD)
     if(CMAKE_CXX_STANDARD LESS ${REQUIRED_CPP_STANDARD})

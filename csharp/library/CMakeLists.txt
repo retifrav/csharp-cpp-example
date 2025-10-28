@@ -4,3 +4,17 @@ target_sources(some
     PRIVATE
         src/Some.cs
 )
+
+# that does not work, because generator expression gets URL-encoded, and even if it is manually corrected,
+# it won't get evaluated in the generated VS project file (as it only gets evaluated during build?)
+#set_target_properties(some
+#    PROPERTIES
+#        VS_DOTNET_REFERENCE_thing "$<TARGET_FILE:thing>"
+#)
+
+# and this is useless, because .NET projects don't get installed properly with CMake,
+# plus you'd need to account for possible Debug postfix in the binary name
+#set_target_properties(some
+#    PROPERTIES
+#        VS_DOTNET_REFERENCE_thingy "${CMAKE_INSTALL_PREFIX}/bin/thingy.dll"
+#)

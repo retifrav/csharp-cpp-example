@@ -28,6 +28,7 @@ project(
     "csharp-cpp-example"
     DESCRIPTION "An example project about using a C++ library inside .NET/C# application"
     VERSION 1.2.3
+    LANGUAGES NONE # will be enabled in subdirectories
 )
 
 # global debug postfix for libraries (executables still need to set it)

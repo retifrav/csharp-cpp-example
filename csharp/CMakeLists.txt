@@ -1,5 +1,7 @@
 enable_language(CSharp)
 
+include(GNUInstallDirs) # need to be after at least some language has been enabled
+
 include(CSharpUtilities)
 
 set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")

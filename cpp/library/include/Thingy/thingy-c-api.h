@@ -1,7 +1,10 @@
-#ifndef THINGY_H
-#define THINGY_H
+#ifndef THINGY_C_API_H
+#define THINGY_C_API_H
 
-#include <string>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 #ifdef thingy_EXPORTS // CMake sets that when BUILD_SHARED_LIBS=1 (or if library is hardcoded to SHARED)
     #ifdef _MSC_VER // for MSVC
@@ -23,10 +26,11 @@
     #define DLLEXPORT // so it doesn't fail being undefined
 #endif
 
-namespace dpndnc
-{
-    DLLEXPORT std::string doThingy();
-    DLLEXPORT std::string whoHasTheBestBoobs(std::string jsonString);
-}
+// returns a pointer to a string, caller must not free it
+DLLEXPORT const char *do_thingy();
 
-#endif // THINGY_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif // THINGY_C_API_H

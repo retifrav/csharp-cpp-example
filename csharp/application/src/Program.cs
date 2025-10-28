@@ -29,7 +29,8 @@ class Program
                 Console.WriteLine($"Something that was passed: {smOpt}");
             }
 
-            Console.WriteLine($"Something from dependency: {Some.getSome()}");
+            Console.WriteLine($"Something from C# library | {Some.getSome()}");
+            Console.WriteLine($"Something from C++ library through C# library | {Some.DoThingy()}");
 
             return 0;
         }
