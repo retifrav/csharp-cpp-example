@@ -1,10 +1,11 @@
-#include <Thingy/thingy-c-api.h>
 #include <Thingy/thingy.h>
 
-static std::string thng;
-
-const char *do_thingy()
+extern "C" __declspec(dllexport) const char *do_thingy()
 {
-    thng = dpndnc::doThingy(); // call the C++ function
-    return thng.c_str(); // return C-style string
+    // to keep the string in memory it needs to be `static`, otherwise it will be destroyed
+    // after `do_thingy()` does the return, so in C# that would be a pointer to invalid memory
+    static std::string thng = dpndnc::doThingy();
+
+    // return C-style string
+    return thng.c_str(); // apparently, this can only hold ANSII characters
 }

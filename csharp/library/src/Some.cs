@@ -10,15 +10,15 @@ public static class Some
 #else
     [DllImport("thingy.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
 #endif
-    public static extern IntPtr do_thingy();
+    private static extern IntPtr do_thingy();
 
     public static string DoThingy()
     {
-        return Marshal.PtrToStringAnsi(do_thingy());
+        return Marshal.PtrToStringUTF8(do_thingy());
     }
 
     public static string getSome()
     {
-        return "here's some string from C#";
+        return "a string from C#";
     }
 }

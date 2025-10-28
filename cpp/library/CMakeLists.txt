@@ -10,7 +10,6 @@ target_sources(thingy
             BASE_DIRS include
             FILES
                 include/Thingy/thingy.h
-                include/Thingy/thingy-c-api.h
 )
 
 target_include_directories(thingy
