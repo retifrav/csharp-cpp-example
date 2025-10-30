@@ -16,3 +16,4 @@ if(NOT DEFINED CMAKE_CXX_EXTENSIONS)
 endif()
 
 add_subdirectory(library)
+add_subdirectory(library-c-api)

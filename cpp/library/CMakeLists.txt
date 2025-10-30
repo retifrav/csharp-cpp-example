@@ -1,9 +1,11 @@
-add_library(thingy SHARED) # has to be `SHARED`, since this is for .NET (and also `thingy_c_api`)
+# does not have to be `SHARED` with P/Invoke method, only `thingy_c_api` has to,
+# but then in the `thingy.h` header there would have to be an OR condition for *_EXPORTS,
+# which wouldn't(?) be entirely correct in case the library would like to build as STATIC
+add_library(thingy SHARED)
 
 target_sources(thingy
     PRIVATE
         src/thingy.cpp
-        src/thingy-c-api.cpp
     PUBLIC
         FILE_SET public_headers
             TYPE HEADERS
@@ -64,42 +66,3 @@ target_compile_features(thingy INTERFACE "cxx_std_${REQUIRED_CPP_STANDARD}")
 #    "${CMAKE_CURRENT_BINARY_DIR}/thingyConfigVersion.cmake"
 #    DESTINATION "share/thingy"
 #)
-
-# ---
-
-add_library(thingy_c_api SHARED) # has to be `SHARED`, since this is for .NET
-
-target_sources(thingy_c_api
-    PRIVATE
-        src/thingy-c-api.cpp
-)
-
-target_link_libraries(thingy_c_api
-    PRIVATE
-        thingy
-)
-
-# you might need the DLL is expected to have the same consistent name,
-# as it gets referred to / loaded under the same consistent hardcoded string value
-# set_target_properties(thingy_c_api
-#     PROPERTIES
-#         DEBUG_POSTFIX ""
-# )
-
-# should be a proper installation, but standard CMake installation procedures are useless
-# for installing .NET projects, so one can just as well just collect everything in the final
-# application build folder
-add_custom_command(
-    TARGET thingy_c_api
-    POST_BUILD
-    # copy the library itself (thingy_c_api[d].dll)
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:thingy_c_api>
-        $<TARGET_FILE_DIR:applctn>
-    # copy its dependencies (thingy[d].dll)
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_RUNTIME_DLLS:thingy_c_api>
-        $<TARGET_FILE_DIR:applctn>
-    COMMAND_EXPAND_LISTS
-    COMMENT "Copying runtime dependencies (DLLs)"
-)

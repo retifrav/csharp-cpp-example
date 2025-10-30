@@ -3,20 +3,14 @@
 
 #include <string>
 
-#ifdef thingy_EXPORTS // CMake sets that when BUILD_SHARED_LIBS=1 (or if library is hardcoded to SHARED)
-    #ifdef _MSC_VER // for MSVC
-        // export on compiling the DLL (when building)
-        #define DLLEXPORT __declspec(dllexport)
-    //#elif __GNUC__ >= 4 // for GCC
-    //    #define DLLEXPORT __attribute__ ((visibility("default")))
-    #endif // any other compilers require anything like that?
+// CMake sets that when BUILD_SHARED_LIBS=1 (or if library is hardcoded to SHARED)
+#if defined(thingy_EXPORTS)
+//#if defined(thingy_EXPORTS) || defined(thingy_c_api_EXPORTS)
+    // export on compiling the DLL (when building)
+    #define DLLEXPORT __declspec(dllexport)
 #else
-    #ifdef _MSC_VER // for MSVC
-        // import on using the created DLL (when using in projects)
-        #define DLLEXPORT __declspec(dllimport)
-    //#elif __GNUC__ >= 4 // for GCC
-    //    // something here for GCC?
-    #endif // any other compilers require anything like that?
+    // import on using the created DLL (when using in projects)
+    #define DLLEXPORT __declspec(dllimport)
 #endif
 
 #ifndef DLLEXPORT

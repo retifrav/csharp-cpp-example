@@ -16,6 +16,16 @@ set_target_properties(applctn
         DEBUG_POSTFIX "${CMAKE_DEBUG_POSTFIX}"
 )
 
+add_custom_command(
+    TARGET applctn
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_CURRENT_SOURCE_DIR}/etc/grils.json
+        $<TARGET_FILE_DIR:applctn>
+    COMMAND_EXPAND_LISTS
+    COMMENT "Copying the JSON file with grils"
+)
+
 # this is pretty much useless for installing .NET applications, as they require quite a lot of things,
 # all of which are already available in the `CMAKE_CURRENT_BINARY_DIR/{Debug,Release}/`
 #

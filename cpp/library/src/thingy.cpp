@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 
 #include <Thingy/thingy.h>
@@ -16,6 +17,8 @@ namespace dpndnc
 
     std::string whoHasTheBestBoobs(std::string jsonString)
     {
+        //std::cout << "[DEBUG] Got this JSON string on C++ side: " << jsonString << std::endl;
+
         Json::Value root;
         Json::Reader reader;
         if (!reader.parse(jsonString, root))
