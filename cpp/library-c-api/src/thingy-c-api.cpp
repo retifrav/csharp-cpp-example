@@ -1,6 +1,6 @@
 #include <Thingy/thingy.h>
 
-extern "C" __declspec(dllexport) const char *do_thingy()
+extern "C" __declspec(dllexport) const char *do_thingy_c()
 {
     // to keep the string in memory it needs to be `static`, otherwise it will be destroyed
     // after `do_thingy()` does the return, so in C# that would be a pointer to invalid memory
@@ -10,8 +10,8 @@ extern "C" __declspec(dllexport) const char *do_thingy()
     return thng.c_str(); // apparently, this can only hold ANSII characters
 }
 
-extern "C" __declspec(dllexport) const char *who_has_the_best_boobs(const char *jsonString)
+extern "C" __declspec(dllexport) const char *who_has_the_best_boobs_c(const char *jsn)
 {
-    static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(std::string(jsonString));
+    static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(std::string(jsn));
     return bestBoobs.c_str();
 }

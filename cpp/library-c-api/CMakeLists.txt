@@ -1,4 +1,4 @@
-add_library(thingy-c-api SHARED) # has to be `SHARED`, since this is for .NET
+add_library(thingy-c-api SHARED) # has(?) to be `SHARED`, since this is for .NET
 
 target_sources(thingy-c-api
     PRIVATE
@@ -27,7 +27,7 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         $<TARGET_FILE:thingy-c-api>
         $<TARGET_FILE_DIR:applctn>
-    # copy its dependencies (thingy[d].dll)
+    # should also copy its dependencies (thingy[d].dll)
     #COMMAND ${CMAKE_COMMAND} -E copy_if_different
     #    $<TARGET_RUNTIME_DLLS:thingy-c-api>
     #    $<TARGET_FILE_DIR:applctn>
@@ -41,11 +41,10 @@ if (THINGY_LIBRARY_TYPE STREQUAL "SHARED_LIBRARY")
    add_custom_command(
        TARGET thingy-c-api
        POST_BUILD
-       # copy its dependencies (thingy[d].dll)
        COMMAND ${CMAKE_COMMAND} -E copy_if_different
            $<TARGET_RUNTIME_DLLS:thingy-c-api>
            $<TARGET_FILE_DIR:applctn>
        COMMAND_EXPAND_LISTS
-       COMMENT "Copying the wrapper dependencies DLLs"
+       COMMENT "Copying the C API wrapper dependencies DLLs"
    )
 endif()

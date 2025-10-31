@@ -45,9 +45,6 @@ class Program
             Console.WriteLine($"Something that was passed as CLI argument: {smOpt}");
         }
 
-        Console.WriteLine($"Something from C# library | {Some.getSome()}");
-        Console.WriteLine($"Something from C++ library through C# library | {Some.DoThingy()}");
-
         //if (parseResult.GetValue(fileOption) is FileInfo grilsJSON)
         var grilsJSON = parseResult.GetValue(fileOption);
         if (!grilsJSON.Exists)
@@ -59,13 +56,34 @@ class Program
         }
         Console.WriteLine($"JSON file with grils: {grilsJSON}");
 
+        Console.WriteLine();
+
+        Console.WriteLine($"Something from C# library | {Some.getSome()}");
+
+        string jsonFileContents = string.Empty;
         using (var streamReader = new StreamReader(grilsJSON.FullName, Encoding.UTF8))
         {
-            var bestBoobs = Some.WhoHasTheBestBoobs(streamReader.ReadToEnd());
-            Console.WriteLine(
-                $"{Environment.NewLine}Best gril, objectively:{Environment.NewLine}{bestBoobs}"
-            );
+            jsonFileContents = streamReader.ReadToEnd();
+
         }
+
+        // --- P/Invoke with C API wrapper
+
+        Console.WriteLine();
+
+        Console.WriteLine($"Something from C++ library through C# library via P/Invoke | {Some.DoThingyC()}");
+        Console.WriteLine(
+            $"Best gril, objectively:{Environment.NewLine}{Some.WhoHasTheBestBoobsC(jsonFileContents)}"
+        );
+
+        // --- CLI/C++ CLR wrapper
+
+        Console.WriteLine();
+
+        Console.WriteLine($"Something from C++ library through C# library via CLI/C++ CLR | {Some.DoThingyCLR()}");
+        Console.WriteLine(
+            $"Best gril, objectively:{Environment.NewLine}{Some.WhoHasTheBestBoobsCLR(jsonFileContents)}"
+        );
 
         return 0;
     }
