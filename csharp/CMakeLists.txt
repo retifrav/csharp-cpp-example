@@ -7,7 +7,8 @@ include(GNUInstallDirs) # need to be after at least some language has been enabl
 
 set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")
 set(CMAKE_DOTNET_TARGET_FRAMEWORK "net9.0")
-#set(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "net9.0")
+# no need to set either of these, all of that should be taken care of by the preceding statements
+#set(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "9.0")
 #string(APPEND CMAKE_CSharp_FLAGS " /langversion:13")
 
 add_subdirectory(library)
