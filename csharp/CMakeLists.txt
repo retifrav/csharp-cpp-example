@@ -2,7 +2,8 @@ enable_language(CSharp)
 
 include(GNUInstallDirs) # need to be after at least some language has been enabled
 
-include(CSharpUtilities)
+# https://cmake.org/cmake/help/latest/module/CSharpUtilities.html
+#include(CSharpUtilities) # none of the commands from this module are needed (at least, for now)
 
 set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")
 set(CMAKE_DOTNET_TARGET_FRAMEWORK "net9.0")
