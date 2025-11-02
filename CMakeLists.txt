@@ -31,6 +31,8 @@ project(
     LANGUAGES NONE # will be enabled in subdirectories
 )
 
+option(CSHARP_CPP_EXAMPLE_BUILD_TOOL_CPP "Build the C++ tool (to test the C++ library)" 0)
+
 # global debug postfix for libraries (executables still need to set it)
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Filename postfix for libraries under DEBUG configuration")
 

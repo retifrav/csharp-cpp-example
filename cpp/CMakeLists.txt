@@ -16,5 +16,8 @@ if(NOT DEFINED CMAKE_CXX_EXTENSIONS)
 endif()
 
 add_subdirectory(library)
+if(CSHARP_CPP_EXAMPLE_BUILD_TOOL_CPP)
+    add_subdirectory(tool)
+endif()
 add_subdirectory(library-c-api)
 add_subdirectory(library-clr)

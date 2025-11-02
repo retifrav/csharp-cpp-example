@@ -34,36 +34,36 @@ target_link_libraries(thingy
 target_compile_features(thingy INTERFACE "cxx_std_${REQUIRED_CPP_STANDARD}")
 
 # installation isn't really needed, as this library is meant to be just an internal project dependency
-#
-## install the target and create export-set
-#install(TARGETS thingy
-#   EXPORT "thingyTargets"
-#   FILE_SET public_headers
-#)
-#
-## generate and install export file
-#install(EXPORT "thingyTargets"
-#   FILE "thingyTargets.cmake"
-#   NAMESPACE "${PROJECT_NAME}::"
-#   DESTINATION "share/thingy"
-#)
-#
-#include(CMakePackageConfigHelpers)
-#
-## generate the version file for the config file
-#write_basic_package_version_file(
-#   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfigVersion.cmake"
-#   COMPATIBILITY AnyNewerVersion
-#)
-## create config file
-#configure_package_config_file(
-#   "${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"
-#   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfig.cmake"
-#   INSTALL_DESTINATION "share/thingy"
-#)
-## install config files
-#install(FILES
-#   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfig.cmake"
-#   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfigVersion.cmake"
-#   DESTINATION "share/thingy"
-#)
+
+# install the target and create export-set
+install(TARGETS thingy
+   EXPORT "thingyTargets"
+   FILE_SET public_headers
+)
+
+# generate and install export file
+install(EXPORT "thingyTargets"
+   FILE "thingyTargets.cmake"
+   NAMESPACE "${PROJECT_NAME}::"
+   DESTINATION "share/thingy"
+)
+
+include(CMakePackageConfigHelpers)
+
+# generate the version file for the config file
+write_basic_package_version_file(
+   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfigVersion.cmake"
+   COMPATIBILITY AnyNewerVersion
+)
+# create config file
+configure_package_config_file(
+   "${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in"
+   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfig.cmake"
+   INSTALL_DESTINATION "share/thingy"
+)
+# install config files
+install(FILES
+   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfig.cmake"
+   "${CMAKE_CURRENT_BINARY_DIR}/thingyConfigVersion.cmake"
+   DESTINATION "share/thingy"
+)
