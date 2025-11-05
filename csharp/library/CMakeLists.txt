@@ -26,3 +26,6 @@ target_link_libraries(some
         #thingy-c-api # might need to be explicitly linked too, but it seems to be fine without
         thingy-clr
 )
+
+# install the target
+install(TARGETS some)

@@ -1,4 +1,4 @@
-add_library(thingy-c-api SHARED) # has(?) to be `SHARED`, since this is for .NET
+add_library(thingy-c-api SHARED) # has to be `SHARED`, since this is for .NET (an in general for FFI)
 
 target_sources(thingy-c-api
     PRIVATE
