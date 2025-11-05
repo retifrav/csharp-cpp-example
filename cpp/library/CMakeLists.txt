@@ -1,7 +1,4 @@
-# does not have to be `SHARED` with P/Invoke method, only `thingy_c_api` has to,
-# but then in the `thingy.h` header there would have to be an OR condition for *_EXPORTS,
-# which wouldn't(?) be entirely correct in case the library would like to build as STATIC
-add_library(thingy SHARED)
+add_library(thingy)
 
 target_sources(thingy
     PRIVATE

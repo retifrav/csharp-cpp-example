@@ -27,15 +27,12 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         $<TARGET_FILE:thingy-c-api>
         $<TARGET_FILE_DIR:applctn>
-    # should also copy its dependencies (thingy[d].dll)
-    #COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    #    $<TARGET_RUNTIME_DLLS:thingy-c-api>
-    #    $<TARGET_FILE_DIR:applctn>
     COMMAND_EXPAND_LISTS
     COMMENT "Copying the C API wrapper DLL"
 )
-# the thingy DLL is only needed when it is built as a SHARED library, which is always, actually,
-# so this can just as well be an additional command in the same `add_custom_command()` above
+# the `thingy` DLL is only needed when it is built as a SHARED library,
+# but actually this command should always be enabled just in case
+# there are / will be other runtime dependencies
 get_target_property(THINGY_LIBRARY_TYPE thingy TYPE)
 if (THINGY_LIBRARY_TYPE STREQUAL "SHARED_LIBRARY")
    add_custom_command(
