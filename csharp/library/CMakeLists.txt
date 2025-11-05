@@ -23,9 +23,24 @@ target_sources(some
 
 target_link_libraries(some
     PRIVATE
-        #thingy-c-api # might need to be explicitly linked too, but it seems to be fine without
+        thingy-c-api # doesn't seem to be actually required, unless you are going to use `$<TARGET_RUNTIME_DLLS:some>`
         thingy-clr
 )
+
+# should be a proper installation, but standard CMake installation procedures are useless(?)
+# for installing .NET projects, so one can just as well just collect everything in the final
+# application build folder
+if(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY)
+    add_custom_command(
+       TARGET some
+       POST_BUILD
+       COMMAND ${CMAKE_COMMAND} -E copy_if_different
+           $<TARGET_RUNTIME_DLLS:some>
+           $<TARGET_FILE_DIR:applctn>
+       COMMAND_EXPAND_LISTS
+       COMMENT "Copying the C# library dependencies DLLs"
+    )
+endif()
 
 # install the target
 install(TARGETS some)

@@ -32,6 +32,7 @@ project(
 )
 
 option(CSHARP_CPP_EXAMPLE_BUILD_TOOL_CPP "Build the C++ tool (to test the C++ library)" 0)
+option(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY "Copy the DLLs to application build folder" 1)
 
 # global debug postfix for libraries (executables still need to set it)
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Filename postfix for libraries under DEBUG configuration")
