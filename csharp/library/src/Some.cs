@@ -13,33 +13,35 @@ public static class Some
     // --- P/Invoke with C API wrapper
 
 #if DEBUG
-    [DllImport("thingy-c-apid.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
+    const string thingyDLLfileName = "thingy-c-apid.dll";
 #else
-    [DllImport("thingy-c-api.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
+    const string thingyDLLfileName = "thingy-c-api.dll";
 #endif
+
+    [DllImport(thingyDLLfileName)] // CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Unicode
     private static extern IntPtr do_thingy_c();
     public static string DoThingyC()
     {
-        return Marshal.PtrToStringAnsi(do_thingy_c()); // `Marshal.PtrToStringUTF8` is apparently no good for C
+        IntPtr thng = do_thingy_c();
+        string marshalledString = Marshal.PtrToStringUTF8(thng);
+        Marshal.FreeHGlobal(thng); // need to free the memory
+        return marshalledString;
     }
 
-#if DEBUG
-    [DllImport("thingy-c-apid.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
-#else
-    [DllImport("thingy-c-api.dll", CallingConvention=CallingConvention.Cdecl)] // CharSet = CharSet.Unicode
-#endif
+    [DllImport(thingyDLLfileName)] // CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Unicode
     private static extern IntPtr who_has_the_best_boobs_c(IntPtr jsnPtr);
     public static string WhoHasTheBestBoobsC(string jsn)
     {
         //Console.WriteLine($"[DEBUG] Got this JSON string on C# side: {jsn}");
 
-        // ideally should also call `Marshal.FreeHGlobal(jsnPtr)` somewhere
-        IntPtr jsnPtr = Marshal.StringToHGlobalAnsi(jsn);
-        return Marshal.PtrToStringUTF8(
+        IntPtr jsnPtr = Marshal.StringToCoTaskMemUTF8(jsn);
+        string marshalledString = Marshal.PtrToStringUTF8(
             who_has_the_best_boobs_c(
                 jsnPtr
             )
         );
+        Marshal.FreeHGlobal(jsnPtr); // need to free the memory
+        return marshalledString;
     }
 
     // --- CLI/C++ CLR wrapper

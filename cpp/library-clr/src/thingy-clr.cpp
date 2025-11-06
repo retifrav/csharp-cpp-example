@@ -18,7 +18,9 @@ public:
 
     static String^ WhoHasTheBestBoobs(String^ jsn)
     {
-        static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(msclr::interop::marshal_as<std::string>(jsn));
+        static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(
+            msclr::interop::marshal_as<std::string>(jsn)
+        );
         // using msclr
         return msclr::interop::marshal_as<String^>(bestBoobs);
         // or

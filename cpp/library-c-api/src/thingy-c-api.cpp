@@ -7,7 +7,7 @@ extern "C" __declspec(dllexport) const char *do_thingy_c()
     static std::string thng = dpndnc::doThingy();
 
     // return C-style string
-    return thng.c_str(); // apparently, this can only hold ANSII characters
+    return thng.c_str();
 }
 
 extern "C" __declspec(dllexport) const char *who_has_the_best_boobs_c(const char *jsn)
