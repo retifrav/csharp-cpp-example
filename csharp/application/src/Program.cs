@@ -10,6 +10,9 @@ class Program
 {
     static int Main(string[] args)
     {
+        // if you are going to print UTF-8 string to console
+        //Console.OutputEncoding = Encoding.UTF8;
+
         Option<string> someOption = new("--something", "-s")
         {
             Description = "Some thing to pass to the application"
