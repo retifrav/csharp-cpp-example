@@ -29,15 +29,16 @@ public static class Some
     }
 
     [DllImport(thingyDLLfileName)] // CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Unicode
-    private static extern IntPtr who_has_the_best_boobs_c(IntPtr jsnPtr);
-    public static string WhoHasTheBestBoobsC(string jsn)
+    private static extern IntPtr who_has_the_best_boobs_c(IntPtr jsnPtr, int bornIn);
+    public static string WhoHasTheBestBoobsC(string jsn, int bornIn = 0)
     {
         //Console.WriteLine($"[DEBUG] Got this JSON string on C# side: {jsn}");
 
         IntPtr jsnPtr = Marshal.StringToCoTaskMemUTF8(jsn);
         string marshalledString = Marshal.PtrToStringUTF8(
             who_has_the_best_boobs_c(
-                jsnPtr
+                jsnPtr,
+                bornIn
             )
         );
         //Marshal.FreeHGlobal(jsnPtr); // no need to free the memory, because this string was created with `c_str()`?
@@ -51,8 +52,8 @@ public static class Some
         return ThingyWrapperCLR.DoThingy();
     }
 
-    public static string WhoHasTheBestBoobsCLR(string jsn)
+    public static string WhoHasTheBestBoobsCLR(string jsn, int bornIn = 0)
     {
-        return ThingyWrapperCLR.WhoHasTheBestBoobs(jsn);
+        return ThingyWrapperCLR.WhoHasTheBestBoobs(jsn, bornIn);
     }
 }

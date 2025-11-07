@@ -22,13 +22,13 @@ public:
         //return gcnew String(thngWstring.c_str());
     }
 
-    static String^ WhoHasTheBestBoobs(String^ jsn)
+    static String^ WhoHasTheBestBoobs(String^ jsn, int bornIn)
     {
         // on some () hosts it doesn't seem to be required to do this, as apparently
         // `msclr::interop::marshal_as<std::string>()` manages `String^` just fine
         // on its own (converts from UTF-16 to UTF-8 on its own behind the scenes),
         // but on other hosts that isn't the case for some reason
-        //
+
         // for instance, on Windows ARM inside Parallels virtual machine on ARM-based Mac OS
         // I had to do this
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
@@ -37,7 +37,7 @@ public:
         std::wstring jsnWstring = msclr::interop::marshal_as<std::wstring>(jsn);
         std::string jsnString = converter.to_bytes(jsnWstring);
         //
-        std::string bestBoobs = dpndnc::whoHasTheBestBoobs(jsnString);
+        std::string bestBoobs = dpndnc::whoHasTheBestBoobs(jsnString, bornIn);
         //
         // from UTF-8 to UTF-16 (System::String)
         std::wstring bestBoobsWstring = converter.from_bytes(bestBoobs);
@@ -47,10 +47,11 @@ public:
         // or
         //return gcnew String(bestBoobsWstring.c_str());
 
-        // while on Windows x64 actual physical host it was enough to just do this simple thing
+        // while on Windows x64 actual physical x64 host it was enough to just do this simple thing
         /*
         std::string bestBoobs = dpndnc::whoHasTheBestBoobs(
-            msclr::interop::marshal_as<std::string>(jsn)
+            msclr::interop::marshal_as<std::string>(jsn),
+            bornIn
         );
         // using msclr
         return msclr::interop::marshal_as<String^>(bestBoobs);

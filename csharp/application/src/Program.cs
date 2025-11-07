@@ -75,7 +75,7 @@ class Program
         Console.WriteLine();
 
         string resultFromPInvoke1 = Some.DoThingyC();
-        string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents);
+        string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents/*, 1983*/);
 
         // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
         /*
@@ -94,7 +94,7 @@ class Program
         Console.WriteLine();
 
         string resultFromCppCli1 = Some.DoThingyCLR();
-        string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents);
+        string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents/*, 1983*/);
 
         // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
         /*

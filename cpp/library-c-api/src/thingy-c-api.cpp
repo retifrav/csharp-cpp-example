@@ -10,8 +10,8 @@ extern "C" __declspec(dllexport) const char *do_thingy_c()
     return thng.c_str();
 }
 
-extern "C" __declspec(dllexport) const char *who_has_the_best_boobs_c(const char *jsn)
+extern "C" __declspec(dllexport) const char *who_has_the_best_boobs_c(const char *jsn, int bornIn)
 {
-    static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(std::string(jsn));
+    static std::string bestBoobs = dpndnc::whoHasTheBestBoobs(std::string(jsn), bornIn);
     return bestBoobs.c_str();
 }

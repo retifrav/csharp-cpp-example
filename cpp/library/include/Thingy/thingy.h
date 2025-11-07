@@ -21,7 +21,7 @@
 namespace dpndnc
 {
     DLLEXPORT std::string doThingy();
-    DLLEXPORT std::string whoHasTheBestBoobs(std::string jsonString);
+    DLLEXPORT std::string whoHasTheBestBoobs(std::string jsonString, int bornIn = 0);
 }
 
 #endif // THINGY_H

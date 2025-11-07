@@ -15,7 +15,7 @@ namespace dpndnc
         return someThing.str();
     }
 
-    std::string whoHasTheBestBoobs(std::string jsonString)
+    std::string whoHasTheBestBoobs(std::string jsonString, int bornIn)
     {
         //std::cout << "[DEBUG] Got this JSON string on C++ side: " << jsonString << std::endl;
 
@@ -36,25 +36,32 @@ namespace dpndnc
         {
             // there should be checks for whether these keys are even there
             int currentBoobs = grils[i]["boobs"].asInt();
+            int currentYear = grils[i]["year"].asInt();
             std::string currentGirl = grils[i]["name"].asString();
 
-            if (currentBoobs > bestBoobs)
+            if (bornIn == 0 || bornIn == currentYear)
             {
-                bestBoobs = currentBoobs;
-                bestGirl = grils[i]["name"].asString();
-            }
-            else if (currentBoobs == bestBoobs)
-            {
-                std::stringstream bestGirls;
-                bestGirls << bestGirl << ", " << currentGirl;
-                bestGirl = bestGirls.str();
+                if (currentBoobs > bestBoobs)
+                {
+                    bestBoobs = currentBoobs;
+                    bestGirl = grils[i]["name"].asString();
+                }
+                else if (currentBoobs == bestBoobs)
+                {
+                    std::stringstream bestGirls;
+                    bestGirls << bestGirl << ", " << currentGirl;
+                    bestGirl = bestGirls.str();
+                }
             }
         }
 
         if (bestBoobs == 0)
         {
             // yet another lazy-ass errors reporting
-            return "[ERROR] Couldn't determine the best gril";
+            std::stringstream errorMsg;
+            errorMsg << "[ERROR] Couldn't determine the best gril";
+            if (bornIn != 0) { errorMsg << " (at least not among the ones born in " << bornIn << ")"; }
+            return errorMsg.str();
         }
         else { return bestGirl; }
     }
