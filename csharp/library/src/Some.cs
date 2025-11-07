@@ -24,7 +24,7 @@ public static class Some
     {
         IntPtr thng = do_thingy_c();
         string marshalledString = Marshal.PtrToStringUTF8(thng);
-        Marshal.FreeHGlobal(thng); // need to free the memory
+        //Marshal.FreeHGlobal(thng); // need to free the memory? But it crashes here from time to time
         return marshalledString;
     }
 
@@ -40,7 +40,7 @@ public static class Some
                 jsnPtr
             )
         );
-        Marshal.FreeHGlobal(jsnPtr); // need to free the memory
+        //Marshal.FreeHGlobal(jsnPtr); // need to free the memory? But it crashes here from time to time
         return marshalledString;
     }
 
