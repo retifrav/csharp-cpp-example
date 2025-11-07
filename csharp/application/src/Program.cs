@@ -74,19 +74,39 @@ class Program
 
         Console.WriteLine();
 
-        Console.WriteLine($"Something from C++ library through C# library via P/Invoke | {Some.DoThingyC()}");
-        Console.WriteLine(
-            $"Best gril, objectively:{Environment.NewLine}{Some.WhoHasTheBestBoobsC(jsonFileContents)}"
-        );
+        string resultFromPInvoke1 = Some.DoThingyC();
+        string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents);
+
+        // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
+        /*
+        using(StreamWriter sw = new StreamWriter("tmp-results-pinvoke.txt"))
+        {
+            sw.WriteLine(resultFromPInvoke1);
+            sw.WriteLine(resultFromPInvoke2);
+        }
+        */
+
+        Console.WriteLine($"Something from C++ library through C# library via P/Invoke | {resultFromPInvoke1}");
+        Console.WriteLine($"Best gril(s), objectively: {resultFromPInvoke2}");
 
         // --- CLI/C++ CLR wrapper
 
         Console.WriteLine();
 
-        Console.WriteLine($"Something from C++ library through C# library via CLI/C++ CLR | {Some.DoThingyCLR()}");
-        Console.WriteLine(
-            $"Best gril, objectively:{Environment.NewLine}{Some.WhoHasTheBestBoobsCLR(jsonFileContents)}"
-        );
+        string resultFromCppCli1 = Some.DoThingyCLR();
+        string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents);
+
+        // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
+        /*
+        using(StreamWriter sw = new StreamWriter("tmp-results-cppcli.txt"))
+        {
+            sw.WriteLine(resultFromCppCli1);
+            sw.WriteLine(resultFromCppCli2);
+        }
+        */
+
+        Console.WriteLine($"Something from C++ library through C# library via CLI/C++ CLR | {resultFromCppCli1}");
+        Console.WriteLine($"Best gril(s), objectively: {resultFromCppCli2}");
 
         return 0;
     }
