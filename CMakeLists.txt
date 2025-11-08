@@ -31,7 +31,8 @@ project(
     LANGUAGES NONE # will be enabled in subdirectories
 )
 
-option(CSHARP_CPP_EXAMPLE_BUILD_TOOL_CPP "Build the C++ tool (to test the C++ library)" 0)
+option(CSHARP_CPP_EXAMPLE_INSTALL_THINGY_LIBRARY "Install the native C++ library)" 0)
+option(CSHARP_CPP_EXAMPLE_BUILD_TOOL_CPP "Build the C++ tool (to test the native C++ library)" 0)
 option(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY "Copy the DLLs to application build folder" 1)
 
 # global debug postfix for libraries (executables still need to set it)
