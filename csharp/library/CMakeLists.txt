@@ -31,6 +31,8 @@ target_link_libraries(some
 # for installing .NET projects, so one can just as well just collect everything in the final
 # application build folder
 if(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY)
+    # by some mysterious logic `thingy-clr.dll` gets copied on its own,
+    # but the rest of DLLs are not, hence this crutch
     add_custom_command(
        TARGET some
        POST_BUILD
@@ -43,4 +45,11 @@ if(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY)
 endif()
 
 # install the target
-install(TARGETS some)
+install(TARGETS some
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+# install runtime dependencies
+install(
+    FILES $<TARGET_RUNTIME_DLLS:some>
+    DESTINATION ${CMAKE_INSTALL_BINDIR}
+)

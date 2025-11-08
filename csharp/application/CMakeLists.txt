@@ -26,24 +26,18 @@ add_custom_command(
     COMMENT "Copying the JSON file with grils"
 )
 
-# this is pretty much useless for installing .NET applications, as they require quite a lot of things,
-# all of which are already available in the `CMAKE_CURRENT_BINARY_DIR/{Debug,Release}/`
+# this is pretty much useless for installing .NET applications, as they require
+# quite a lot of things aside from just the runtime dependencies; so, instead of hardcoding
+# the installation for all the required files one by one, you can just pack the contents
+# of `${CMAKE_CURRENT_BINARY_DIR}/Release/` (when you build the Release configuration)
 #
-#if(NOT EXISTS ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}) # it doesn't exist before the very first installation yet
-#    file(MAKE_DIRECTORY ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}) # but at least this one will execute before add_custom_command()
-#endif()
+## install the target
 #install(TARGETS applctn
-#    #ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#    #LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+#   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 #)
-## will not discover even its own `applctn(d).dll`
-#add_custom_command(
-#    TARGET applctn
-#    POST_BUILD
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#        $<TARGET_RUNTIME_DLLS:applctn> # locate DLLs (might discover some redundant ones too)
-#        ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR} # where to copy them
-#    COMMAND_EXPAND_LISTS
-#    COMMENT "Copying runtime dependencies (DLLs)"
+## install runtime dependencies
+#install(
+#    FILES $<TARGET_RUNTIME_DLLS:applctn>
+#    DESTINATION ${CMAKE_INSTALL_BINDIR}
 #)
+
