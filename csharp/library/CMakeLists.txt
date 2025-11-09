@@ -21,6 +21,26 @@ target_sources(some
 #        VS_DOTNET_REFERENCE_thingy "${CMAKE_INSTALL_PREFIX}/bin/thingy.dll"
 #)
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_definitions(some
+        PUBLIC
+            OS_WINDOWS
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_definitions(some
+        PUBLIC
+            OS_LINUX
+    )
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    target_compile_definitions(some
+        PUBLIC
+            OS_MAC
+    )
+else()
+    # although it might actually work on other platforms
+    message(FATAL_ERROR "Unknown/unsupported platform")
+endif()
+
 target_link_libraries(some
     PRIVATE
         thingy-c-api # doesn't seem to be actually required, unless you are going to use `$<TARGET_RUNTIME_DLLS:some>`

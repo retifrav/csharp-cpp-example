@@ -13,10 +13,23 @@ public static class Some
     // --- P/Invoke with C API wrapper
 
 #if DEBUG
-    const string thingyDLLfileName = "thingy-c-apid.dll";
+    const string debugPostfix = "d";
 #else
-    const string thingyDLLfileName = "thingy-c-api.dll";
+    const string debugPostfix = "";
 #endif
+
+#if OS_LINUX
+    const string libraryPrefix = ""; // "lib" // looks like DllImport is smart enough to add `lib` suffix on its own
+    const string libraryExtension = "so";
+#elif OS_MAC
+    const string libraryPrefix = ""; // "lib" // looks like DllImport is smart enough to add `lib` suffix on its own
+    const string libraryExtension = "dylib";
+#else
+    const string libraryPrefix = "";
+    const string libraryExtension = "dll";
+#endif
+
+    const string thingyDLLfileName = $"{libraryPrefix}thingy-c-api{debugPostfix}.{libraryExtension}";
 
     [DllImport(thingyDLLfileName)] // CallingConvention=CallingConvention.Cdecl, CharSet = CharSet.Unicode
     private static extern IntPtr do_thingy_c();
@@ -47,6 +60,7 @@ public static class Some
 
     // --- CLI/C++ CLR wrapper
 
+#if OS_WINDOWS
     public static string DoThingyCLR()
     {
         return ThingyWrapperCLR.DoThingy();
@@ -56,4 +70,5 @@ public static class Some
     {
         return ThingyWrapperCLR.WhoHasTheBestBoobs(jsn, bornIn);
     }
+#endif
 }

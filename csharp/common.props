@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <MainProjectFolder>$(MSBuildThisFileDirectory)/..</MainProjectFolder>
+    <DebugPostfix Condition="'$(Configuration)'=='Debug'">d</DebugPostfix>
+  </PropertyGroup>
+</Project>

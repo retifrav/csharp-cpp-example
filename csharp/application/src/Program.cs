@@ -91,6 +91,7 @@ class Program
 
         // --- CLI/C++ CLR wrapper
 
+#if OS_WINDOWS
         Console.WriteLine();
 
         string resultFromCppCli1 = Some.DoThingyCLR();
@@ -107,6 +108,7 @@ class Program
 
         Console.WriteLine($"Something from C++ library through C# library via CLI/C++ CLR | {resultFromCppCli1}");
         Console.WriteLine($"Best gril(s), objectively: {resultFromCppCli2}");
+#endif
 
         return 0;
     }

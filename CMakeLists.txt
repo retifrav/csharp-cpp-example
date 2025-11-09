@@ -39,4 +39,6 @@ option(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY "Copy 
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Filename postfix for libraries under DEBUG configuration")
 
 add_subdirectory(cpp)
-add_subdirectory(csharp)
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_subdirectory(csharp)
+endif()
