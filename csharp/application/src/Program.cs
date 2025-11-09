@@ -24,12 +24,18 @@ class Program
             Required = true
         };
 
+        Option<int> yearOption = new("--year", "-y")
+        {
+            Description = "Year of birth for the grils"
+        };
+
         RootCommand rootCommand = new("applctn")
         {
             Description = "Just some application"
         };
         rootCommand.Options.Add(someOption);
         rootCommand.Options.Add(fileOption);
+        rootCommand.Options.Add(yearOption);
 
         var parseResult = rootCommand.Parse(args);
         if (parseResult.Errors.Count != 0)
@@ -59,6 +65,8 @@ class Program
         }
         Console.WriteLine($"JSON file with grils: {grilsJSON}");
 
+        int grilsYear = parseResult.GetValue(yearOption);
+
         Console.WriteLine();
 
         Console.WriteLine($"Something from C# library | {Some.getSome()}");
@@ -75,7 +83,7 @@ class Program
         Console.WriteLine();
 
         string resultFromPInvoke1 = Some.DoThingyC();
-        string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents/*, 1983*/);
+        string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents, grilsYear);
 
         // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
         /*
@@ -95,7 +103,7 @@ class Program
         Console.WriteLine();
 
         string resultFromCppCli1 = Some.DoThingyCLR();
-        string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents/*, 1983*/);
+        string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents, grilsYear);
 
         // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
         /*
