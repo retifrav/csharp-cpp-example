@@ -54,13 +54,19 @@ class Program
             Console.WriteLine($"Something that was passed as CLI argument: {smOpt}");
         }
 
-        //if (parseResult.GetValue(fileOption) is FileInfo grilsJSON)
-        var grilsJSON = parseResult.GetValue(fileOption);
-        if (!grilsJSON.Exists)
+        if (parseResult.GetValue(fileOption) is FileInfo grilsJSON)
         {
-            Console.WriteLine(
-                $"[ERROR] Provided JSON file with grils [{grilsJSON.FullName}] does not exist"
-            );
+            if (!grilsJSON.Exists)
+            {
+                Console.WriteLine(
+                    $"[ERROR] Provided JSON file with grils [{grilsJSON.FullName}] does not exist"
+                );
+                return 2;
+            }
+        }
+        else
+        {
+            Console.WriteLine($"[ERROR] Something is wrong with the --json option argument");
             return 2;
         }
         Console.WriteLine($"JSON file with grils: {grilsJSON}");

@@ -36,7 +36,8 @@ public static class Some
     public static string DoThingyC()
     {
         IntPtr thng = do_thingy_c();
-        string marshalledString = Marshal.PtrToStringUTF8(thng);
+        string marshalledString = Marshal.PtrToStringUTF8(thng)
+            ?? throw new InvalidOperationException("Got NULL from calling doThingy() in C++");
         //Marshal.FreeHGlobal(thng); // no need to free the memory, because this string was created with `c_str()`?
         return marshalledString;
     }
@@ -53,7 +54,7 @@ public static class Some
                 jsnPtr,
                 bornIn
             )
-        );
+        ) ?? throw new InvalidOperationException("Got NULL from calling whoHasTheBestBoobs() in C++");
         //Marshal.FreeHGlobal(jsnPtr); // no need to free the memory, because this string was created with `c_str()`?
         return marshalledString;
     }
