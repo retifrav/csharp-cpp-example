@@ -26,6 +26,23 @@ add_custom_command(
     COMMENT "Copying the JSON file with grils"
 )
 
+# should be a proper installation, but standard CMake installation procedures are useless(?)
+# for installing .NET projects, so one can just as well just collect everything in the final
+# application build folder
+if(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY)
+    # by some mysterious logic `thingy-clr.dll` gets copied on its own,
+    # but the rest of DLLs are not, hence this crutch
+    add_custom_command(
+       TARGET applctn
+       POST_BUILD
+       COMMAND ${CMAKE_COMMAND} -E copy_if_different
+           $<TARGET_RUNTIME_DLLS:applctn>
+           $<TARGET_FILE_DIR:applctn>
+       COMMAND_EXPAND_LISTS
+       COMMENT "Copying the application dependencies DLLs"
+    )
+endif()
+
 # this is pretty much useless for installing .NET applications, as they require
 # quite a lot of things aside from just the runtime dependencies; so, instead of hardcoding
 # the installation for all the required files one by one, you can just pack the contents
@@ -40,4 +57,3 @@ add_custom_command(
 #    FILES $<TARGET_RUNTIME_DLLS:applctn>
 #    DESTINATION ${CMAKE_INSTALL_BINDIR}
 #)
-
