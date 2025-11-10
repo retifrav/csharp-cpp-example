@@ -14,5 +14,5 @@ set_target_properties(thingy-clr
     PROPERTIES
         # https://cmake.org/cmake/help/latest/prop_tgt/COMMON_LANGUAGE_RUNTIME.html
         # https://learn.microsoft.com/en-us/cpp/build/reference/clr-common-language-runtime-compilation
-        COMMON_LANGUAGE_RUNTIME "" # or `netcore`?
+        COMMON_LANGUAGE_RUNTIME "netcore" # empty string means "classic" .NET Framework
 )

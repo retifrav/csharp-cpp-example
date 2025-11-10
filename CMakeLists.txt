@@ -38,6 +38,14 @@ option(CSHARP_CPP_EXAMPLE_COPY_RUNTIME_DEPENDENCIES_TO_APPLICATION_BINARY "Copy 
 # global debug postfix for libraries (executables still need to set it)
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Filename postfix for libraries under DEBUG configuration")
 
+# even though in general these are only needed for C# path, the C++/CLI CLR wrapper
+# also needs the .NET version specified, so all of that can just as well be set here
+set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")
+set(CMAKE_DOTNET_TARGET_FRAMEWORK "net9.0")
+# no need to set either of these, all of that should be taken care of by the preceding statements
+#set(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "9.0")
+#string(APPEND CMAKE_CSharp_FLAGS " /langversion:13")
+
 add_subdirectory(cpp)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     add_subdirectory(csharp)

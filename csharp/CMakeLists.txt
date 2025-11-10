@@ -5,11 +5,5 @@ include(GNUInstallDirs) # need to be after at least some language has been enabl
 # https://cmake.org/cmake/help/latest/module/CSharpUtilities.html
 #include(CSharpUtilities) # none of the commands from this module are needed (at least, for now)
 
-set(CMAKE_DOTNET_SDK "Microsoft.NET.Sdk")
-set(CMAKE_DOTNET_TARGET_FRAMEWORK "net9.0")
-# no need to set either of these, all of that should be taken care of by the preceding statements
-#set(CMAKE_DOTNET_TARGET_FRAMEWORK_VERSION "9.0")
-#string(APPEND CMAKE_CSharp_FLAGS " /langversion:13")
-
 add_subdirectory(library)
 add_subdirectory(application)
