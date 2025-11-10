@@ -5,20 +5,19 @@ target_sources(some
         src/Some.cs
 )
 
-# that does not work, because generator expression gets URL-encoded, and even if it is manually corrected,
-# it won't get evaluated in the generated VS project file (as it only gets evaluated during build?)
+# that does not work, because generator expressions are not supported in `VS_DOTNET_REFERENCE_*` property
 #set_target_properties(some
 #    PROPERTIES
-#        VS_DOTNET_REFERENCE_thing "$<TARGET_FILE:thing>"
+#        VS_DOTNET_REFERENCE_thingycapi "$<TARGET_FILE:thingy-c-api>"
 #)
-
+#
 # and this is useless, because .NET projects don't get installed properly with CMake,
 # plus you'd need to account for possible Debug postfix in the binary name,
-# and finally `DllImport` doesn't seem to care about the references,
+# and finally `DllImport` doesn't seem to care about the references at all,
 # it just picks up the DLL by file name
 #set_target_properties(some
 #    PROPERTIES
-#        VS_DOTNET_REFERENCE_thingy "${CMAKE_INSTALL_PREFIX}/bin/thingy.dll"
+#        VS_DOTNET_REFERENCE_thingycapi "${CMAKE_INSTALL_PREFIX}/bin/thingy-c-api.dll"
 #)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
