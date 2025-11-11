@@ -7,6 +7,8 @@ An example of using a C++ library inside .NET/C# application.
 - [Building and running](#building-and-running)
     - [On Windows](#on-windows)
     - [On platforms other than Windows](#on-platforms-other-than-windows)
+        - [Desktop](#desktop)
+        - [MAUI](#maui)
 
 <!-- /MarkdownTOC -->
 
@@ -31,6 +33,10 @@ $ ./csharp/application/Release/applctn.exe -j ./csharp/application/Release/grils
 
 ### On platforms other than Windows
 
+#### Desktop
+
+Works equally fine on Mac OS and GNU/Linux:
+
 ``` sh
 $ cd /path/to/csharp-cpp-example
 $ mkdir build && cd $_
@@ -46,3 +52,35 @@ $ dotnet build ../../csharp/application/applctn.csproj \
     --configuration Release
 $ ./bin/applctn/release/applctn -j ./bin/applctn/release/grils.json
 ```
+
+#### MAUI
+
+Targetting iOS simulator:
+
+``` sh
+$ cd /path/to/csharp-cpp-example
+$ mkdir build && cd $_
+
+$ cmake -G Xcode \
+    -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+    -DVCPKG_TARGET_TRIPLET="arm64-ios-simulator" \
+    -DCMAKE_SYSTEM_NAME="iOS" \
+    -DCMAKE_OSX_SYSROOT="iphonesimulator" \
+    -DCMAKE_OSX_ARCHITECTURES="arm64" \
+    ..
+$ cmake --build . --config Debug
+
+$ mkdir ./maui && cd $_
+$ MD_APPLE_SDK_ROOT='/Users/vasya/Applications/Xcode-26.0.0.app' \
+    dotnet build ../../csharp/maui/maui.csproj \
+    --artifacts-path . \
+    --configuration Debug \
+    -f net9.0-ios \
+    /p:ApplicationTargetPlatform=ios-simulator
+```
+
+here:
+
+- `MD_APPLE_SDK_ROOT` is only needed if .NET/MAUI didn't like your "main" Xcode, so you needed to install a different version;
+- the resulting application bundle will be at `./bin/maui/debug_net9.0-ios/maui.app`;
+- instead of `Debug` you might of course prefer building `Release`, but that build might never finish or/and exhaust all your disk space.

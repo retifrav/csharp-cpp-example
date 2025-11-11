@@ -8,6 +8,10 @@
 
   <Import Project="../common.props" />
 
+  <PropertyGroup>
+    <ApplicationTargetPlatform>desktop</ApplicationTargetPlatform>
+  </PropertyGroup>
+
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
     <DefineConstants>OS_WINDOWS</DefineConstants>
   </PropertyGroup>
@@ -20,8 +24,15 @@
     <LibraryExtension>dylib</LibraryExtension>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(ApplicationTargetPlatform) == 'desktop'">
     <ContentWithTargetPath Include="$(MainProjectFolder)/build/cpp/library-c-api/libthingy-c-api$(DebugPostfix).$(LibraryExtension)">
+      <TargetPath>libthingy-c-api$(DebugPostfix).$(LibraryExtension)</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup Condition="$(ApplicationTargetPlatform) == 'ios-simulator'">
+    <ContentWithTargetPath Include="$(MainProjectFolder)/build/cpp/library-c-api/$(Configuration)-iphonesimulator/libthingy-c-api$(DebugPostfix).$(LibraryExtension)">
       <TargetPath>libthingy-c-api$(DebugPostfix).$(LibraryExtension)</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
