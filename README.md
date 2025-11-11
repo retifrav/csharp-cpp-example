@@ -1,6 +1,6 @@
-# .NET/C# and C++ example
+# C++ in .NET/C#
 
-An example of using a C++ library inside .NET/C# application.
+An example of using a C++ library inside a .NET/C# project.
 
 <!-- MarkdownTOC -->
 
