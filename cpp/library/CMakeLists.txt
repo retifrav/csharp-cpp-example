@@ -28,6 +28,14 @@ target_link_libraries(thingy
         JsonCpp::JsonCpp
 )
 
+# doesn't seem to help with anything, still need to use `.StringToCoTaskMemUTF8()` and `.PtrToStringUTF8()`
+# and convert to `std::wstring` with `codecvt`
+#target_compile_definitions(thingy
+#   PUBLIC
+#       "UNICODE"
+#       "_UNICODE" # should be for C runtime, but probably won't hurt anyway
+#)
+
 target_compile_features(thingy INTERFACE "cxx_std_${REQUIRED_CPP_STANDARD}")
 
 # installation isn't really needed, as this library is meant to be just an internal project dependency

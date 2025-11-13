@@ -18,6 +18,12 @@ class Program
             Description = "Some thing to pass to the application"
         };
 
+        // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
+        Option<bool> saveToFileOption = new("--save-strings-to-file", "-t")
+        {
+            Description = "Save the things from C++ to text files (to verify that UTF-8 is okay)"
+        };
+
         Option<FileInfo> fileOption = new("--json", "-j")
         {
             Description = "JSON file with the grils",
@@ -34,6 +40,7 @@ class Program
             Description = "Just some application"
         };
         rootCommand.Options.Add(someOption);
+        rootCommand.Options.Add(saveToFileOption);
         rootCommand.Options.Add(fileOption);
         rootCommand.Options.Add(yearOption);
 
@@ -53,6 +60,8 @@ class Program
         {
             Console.WriteLine($"Something that was passed as CLI argument: {smOpt}");
         }
+
+        bool stfOpt = parseResult.GetValue(saveToFileOption);
 
         if (parseResult.GetValue(fileOption) is FileInfo grilsJSON)
         {
@@ -91,14 +100,14 @@ class Program
         string resultFromPInvoke1 = Some.DoThingyC();
         string resultFromPInvoke2 = Some.WhoHasTheBestBoobsC(jsonFileContents, grilsYear);
 
-        // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
-        /*
-        using(StreamWriter sw = new StreamWriter("tmp-results-pinvoke.txt"))
+        if (stfOpt)
         {
-            sw.WriteLine(resultFromPInvoke1);
-            sw.WriteLine(resultFromPInvoke2);
+            using(StreamWriter sw = new StreamWriter("tmp-results-pinvoke.txt"))
+            {
+                sw.WriteLine(resultFromPInvoke1);
+                sw.WriteLine(resultFromPInvoke2);
+            }
         }
-        */
 
         Console.WriteLine($"Something from C++ library through C# library via P/Invoke | {resultFromPInvoke1}");
         Console.WriteLine($"Best gril(s), objectively: {resultFromPInvoke2}");
@@ -111,14 +120,14 @@ class Program
         string resultFromCppCli1 = Some.DoThingyCLR();
         string resultFromCppCli2 = Some.WhoHasTheBestBoobsCLR(jsonFileContents, grilsYear);
 
-        // if you want to make sure that your UTF-8 strings are okay and it's just console/terminal output who is fucked
-        /*
-        using(StreamWriter sw = new StreamWriter("tmp-results-cppcli.txt"))
+        if (stfOpt)
         {
-            sw.WriteLine(resultFromCppCli1);
-            sw.WriteLine(resultFromCppCli2);
+            using(StreamWriter sw = new StreamWriter("tmp-results-cppcli.txt"))
+            {
+                sw.WriteLine(resultFromCppCli1);
+                sw.WriteLine(resultFromCppCli2);
+            }
         }
-        */
 
         Console.WriteLine($"Something from C++ library through C# library via CLI/C++ CLR | {resultFromCppCli1}");
         Console.WriteLine($"Best gril(s), objectively: {resultFromCppCli2}");
